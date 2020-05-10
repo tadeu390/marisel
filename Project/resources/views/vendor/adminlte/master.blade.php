@@ -48,22 +48,29 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     @endif
+    <link rel="stylesheet" href="{{ url('css/admin.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url('css/jquery-ui.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url('css/bootstrap-datepicker3.min.css') }}" type="text/css">
+
+
+    @if(! config('adminlte.enabled_laravel_mix'))
+        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.pt-BR.min.js') }}"></script>
+        <script src="{{ asset('js/notify.min.js') }}"></script>
+
+        @include('adminlte::plugins', ['type' => 'js'])
+
+    @yield('adminlte_js')
+    @else
+        <script src="{{ mix('js/app.js') }}"></script>
+    @endif
 </head>
 <body class="@yield('classes_body')" @yield('body_data')>
 
 @yield('body')
-
-@if(! config('adminlte.enabled_laravel_mix'))
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-
-@include('adminlte::plugins', ['type' => 'js'])
-
-@yield('adminlte_js')
-@else
-<script src="{{ mix('js/app.js') }}"></script>
-@endif
-
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories\Core\BaseEloquent;
 
+use App\Constants\PaginateConst;
 use App\Repositories\Contracts\RepositoryInterface;
 use App\Repositories\Exceptions\NotEntityDefined;
 
@@ -33,7 +34,7 @@ class BaseEloquentRepository implements RepositoryInterface
         return $this->entity->where($column, $value)->first();
     }
 
-    public function paginate($totalPage = 10)
+    public function paginate($totalPage = PaginateConst::QUANTIDADE)
     {
         return $this->entity->paginate($totalPage);
     }

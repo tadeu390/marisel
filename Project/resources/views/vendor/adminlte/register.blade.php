@@ -24,7 +24,7 @@
 @section('body')
     <div class="register-box">
         <div class="register-logo">
-            <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
+            <a href="{{ $dashboard_url }}"><span style="color: white;" >{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</span></a>
         </div>
         <div class="card">
             <div class="card-body register-card-body">

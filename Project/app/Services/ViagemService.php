@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\Contracts\ViagemRepositoryInterface;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 
 class ViagemService
@@ -13,11 +15,17 @@ class ViagemService
     protected $repository;
 
     /**
+     * @var ClienteService
+     */
+    private $clienteService;
+
+    /**
      * Carrega as instâncias das dependências desta classe.
      */
-    public function __construct(ViagemRepositoryInterface $repository)
+    public function __construct(ViagemRepositoryInterface $repository, ClienteService $clienteService)
     {
         $this->repository = $repository;
+        $this->clienteService = $clienteService;
     }
 
     /**
@@ -27,7 +35,7 @@ class ViagemService
      */
     public function index()
     {
-        return $this->repository->paginate(30);
+        return $this->repository->paginate();
     }
 
     /**
@@ -36,9 +44,9 @@ class ViagemService
      * @param  integer $id
      * @return object mixed
      */
-    public function show($id)
+    public function findById($id)
     {
-        return $this->repository->findWhereFirst('id', $id);
+        return $this->repository->relationships('passageiros')->findById($id);
     }
 
     /**
@@ -49,32 +57,7 @@ class ViagemService
      */
     public function store($data)
     {
-        try {
-
-            $this->repository->store($data);
-
-            return (object) [
-                'success' => true,
-                'message' => 'Grupo cadastrado com sucesso.'
-            ];
-        } catch(\Exception $e) {
-            return (object) [
-                'success' => false,
-                'message' => $e->getMessage(),
-                'class' => get_class($e)
-            ];
-        }
-    }
-
-    /**
-     * Retorna os dados do registro
-     *
-     * @param  int $id
-     * @return object mixed
-     */
-    public function edit($id)
-    {
-        return $this->repository->findById($id);
+        $this->repository->store($data);
     }
 
     /**
@@ -113,16 +96,16 @@ class ViagemService
         try {
             $this->repository->delete($id);
 
-            return (object) [
-                'success' => true,
-                'message' => 'Grupo apagado com sucesso.'
+            return [
+                'message' => 'Viagem apagada com sucesso.',
+                'status' => true
             ];
 
         } catch(\Exception $e) {
-            return (object) [
-                'success' => false,
+
+            return [
                 'message' => $e->getMessage(),
-                'class' => get_class($e)
+                'status' => false
             ];
         }
     }
@@ -136,36 +119,113 @@ class ViagemService
      */
     public function search(Request $request)
     {
-        return $this->repository->search($request);
+        if ($request->data_inicio && $request->data_fim) {
+            if (Carbon::createFromFormat('d/m/Y', $request->data_inicio) > Carbon::createFromFormat('d/m/Y', $request->data_fim)) {
+                return (object) [
+                    'viagens' => $this->index(),
+                    'errors' => 'Data inicial deve ser menor que a data final'
+                ];
+            }
+        }
+
+        return (object) [
+            'viagens' => $this->repository->search($request),
+            'errors' => null
+        ];
     }
 
-    /**
-     * Atualiza as funções de um usuário.
-     *
-     * @param array $data
-     * @param int $id
-     */
-    public function updateRoles($data, $id)
+    private function validar($data)
+    {
+        $viagem = $this->viagemExiste($data->viagem_id);
+        $this->passageiroExiste($data->passageiro_id);
+        $this->passageiroExisteNaViagem($viagem, $data->passageiro_id);
+        $this->clienteService->passageiroExisteEmOutraViagemComAMesmaData($data->passageiro_id, $viagem->data);
+        $this->poltronaEstaDisponível($data->viagem_id, $data->poltrona);
+    }
+
+    private function viagemExiste($viagem_id)
+    {
+        $viagem = $this->findById($viagem_id);
+
+        if (!$viagem) {
+            throw new Exception('Viagem inexistente.');
+        }
+
+        return $viagem;
+    }
+
+    private function passageiroExiste($passageiro_id)
+    {
+        $passageiro = $this->clienteService->findById($passageiro_id);
+
+        if (!$passageiro) {
+            throw new Exception('Passageiro inexistente.');
+        }
+
+        return $passageiro;
+    }
+
+    private function passageiroExisteNaViagem($viagem, $passageiro_id)
+    {
+        $viagem = $this->repository->buscarPassageiroNaViagem($viagem->id, $passageiro_id);
+
+        if (count($viagem->passageiros)) {
+            throw new Exception('Passageiro já se encontra cadastrado nessa viagem.');
+        }
+    }
+
+    private function poltronaEstaDisponível($viagem_id, $poltrona)
+    {
+        $viagem = $this->repository->poltronaEstaDisponível($viagem_id, $poltrona);
+
+        if (count($viagem->passageiros)) {
+            throw new Exception('A poltrona informada já está ocupada por outra pessoa nesta viagem. Por favor, Escolha outra.');
+        }
+    }
+
+    public function cadastrarPassageiro($data)
     {
         try {
-            $group = $this->repository->findById($id);
+            $this->validar($data);
 
-            if (isset($data['roles'])) {
-                $group->roles()->sync($data['roles']);
-            } else {
-                $group->roles()->detach();
-            }
+            $viagem = $this->findById($data->viagem_id);
+            $viagem->passageiros()->attach($data->passageiro_id, ['poltrona' => $data->poltrona, 'observacao' => $data->observacao]);
 
-            return (object) [
-                'success' => true,
-                'message' => 'Funções alteradas com sucesso.'
+            $this->update($data->viagem_id, $viagem->toArray());
+
+            $viagem = $this->repository->buscarPassageiroNaViagem($data->viagem_id, $data->passageiro_id);
+
+            return [
+                'message' => 'Passageiro adicionado com sucesso a viagem.',
+                'passageiro' => $viagem->passageiros[0]->toArray(),
+                'status' => true
             ];
 
         } catch (\Exception $e) {
-            return (object) [
-                'success' => false,
+            return [
                 'message' => $e->getMessage(),
-                'class' => get_class($e)
+                'status' => false
+            ];
+        }
+    }
+
+    public function removerPassageiro($data)
+    {
+        try {
+            $viagem = $this->findById($data->viagem_id);
+            $viagem->passageiros()->detach($data->passageiro_id);
+
+            $this->update($data->viagem_id, $viagem->toArray());
+
+            return  [
+                'message' => 'Passageiro removido com sucesso da viagem.',
+                'status' => true
+            ];
+
+        } catch (Exception $e) {
+            return [
+                'message' => $e->getMessage(),
+                'status' => false
             ];
         }
     }

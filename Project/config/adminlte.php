@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'Marisel Turismo',
-    'title_prefix' => '',
+    'title_prefix' => 'MT - ',
     'title_postfix' => '',
 
     /*
@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '<b>Marisel</b>Turismo',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logo-topo.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -188,11 +188,11 @@ return [
     */
 
     'menu' => [
-        [
+     /*    [
             'text' => 'search',
             'search' => true,
             'topnav' => true,
-        ],
+        ], */
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -208,23 +208,18 @@ return [
         /* ['header' => 'account_settings'], */
         [
             'text' => 'Clientes',
-            'url'  => 'admin/costumers',
+            'url'  => 'admin/clientes',
             'icon' => 'fas fa-users',
         ],
         [
             'text' => 'Viagens',
-            'url'  => 'admin/travels',
+            'url'  => 'admin/viagens',
             'icon' => 'fas fa-bus',
         ],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/usuario/perfil',
             'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
         ],
         /* [
             'text'    => 'multilevel',

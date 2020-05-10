@@ -1,0 +1,112 @@
+.bg-success {
+    background-color: #00a65a !important;
+}
+
+.navbar{
+    padding: 0em 1em !important;
+}
+
+.sidebar {
+    margin-left: -4px;
+}
+
+.breadcrumb {
+    background-color: transparent !important;
+    color: white !important;
+    padding: .1rem 1rem;
+}
+
+.breadcrumb a, .breadcrumb-item {
+    color: white !important;
+}
+
+.bg-purple {
+    background-color: #605ca8;
+}
+
+.box-purple {
+    border-top-color: #605ca8;
+}
+
+.btn-purple {
+    color: white;
+    background-color: #605ca8;
+}
+
+.btn-purple:hover {
+    color: white;
+    background-color: #555299;
+}
+
+/* .fa-chevron-circle-left, .fa-undo {
+    font-size: 25px !important;
+} */
+
+/* .fa-required-size {
+    font-size: .8em !important;
+} */
+
+/* .fa-edit, .fa-info-circle, .fa-lock, #acoes .fa-address-card {
+    color: #605ca8;
+} */
+
+#cardsDashboard .fa-users, #cardsDashboard .fa-address-card, #cardsDashboard .fa-check-circle
+{
+    font-size: 100px;
+    color: #605ca8;
+}
+
+#cardsDashboard a
+{
+    color: #605ca8;
+}
+
+.border-fieldset
+{
+    border: 1px solid #ced4da;
+}
+
+.ui-menu-item-wrapper {
+    padding: 0px !important;
+}
+
+.ui-menu {
+    padding: 7px !important;
+}
+
+.sidebar-dark-primary {
+    background-color: #192557 !important;
+}
+
+.login-page, .register-page {
+    background-color: #283153 !important;
+}
+
+.btn-primary {
+    background-color: #192557 !important;
+}
+
+.login-page a, .register-page a, .index-cliente-page a, .show-historico-viagem a, .index-viagem-page a, .nav-tabs a {
+    color: #192557 !important;
+}
+
+.btn-danger {
+    background-color: #9a2b1c !important;
+}
+
+.fa-bars{
+    color: #192557 !important;
+}
+
+.nav-link.active {
+    background-color: transparent !important;
+}
+
+.table thead {
+    font-weight: bold !important;
+}
+
+.page-item.active .page-link{
+    background-color: #192557 !important;
+    border-color: #192557 !important;
+}

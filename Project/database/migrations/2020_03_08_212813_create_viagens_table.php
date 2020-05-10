@@ -16,7 +16,9 @@ class CreateViagensTable extends Migration
         Schema::create('viagens', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nome');
-            $table->timestamp('data');
+            $table->integer('tipo_veiculo');
+            $table->date('data');
+            $table->time('hora');
             $table->timestamps();
             $table->softDeletes();
         });

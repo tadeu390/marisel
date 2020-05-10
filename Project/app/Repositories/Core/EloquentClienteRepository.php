@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Core;
 
+use App\Constants\PaginateConst;
 use App\Models\Cliente;
 use App\Repositories\Core\BaseEloquent\BaseEloquentRepository;
 use App\Repositories\Contracts\ClienteRepositoryInterface;
+use Carbon\Carbon;
 
 class EloquentClienteRepository extends BaseEloquentRepository implements ClienteRepositoryInterface
 {
@@ -15,35 +17,55 @@ class EloquentClienteRepository extends BaseEloquentRepository implements Client
 
     public function search(object $data)
     {
-        return $this->entity->where(function($query) use ($data){//funcao de callback
-            if (isset($data->title)) {
-                $query = $query->where('title', 'LIKE', "%{$data->title}%");
+        return $this->entity->where(function($query) use ($data){
+            if (isset($data->nome)) {
+                $query = $query->where('nome', 'LIKE', "%{$data->nome}%");
             }
 
-            if (isset($data->url)) {
-                $query = $query->where('url', $data->url);
-            }
-
-            if (isset($data->description)) {
-                $query = $query->where('description', 'LIKE', "%{$data->description}%");
+            if (isset($data->rg)) {
+                $query = $query->where('rgl', $data->rg);
             }
         })
         ->orderBy('id', 'DESC')
-        ->paginate(2);
+        ->paginate(PaginateConst::QUANTIDADE);
     }
 
-    //polimorfismo, reescrevendo alguns métodos
-    public function store(array $data)
+    public function buscaPassageiro(object $data)
     {
-        $data['url'] = kebab_case($data['title']);
-        return $this->entity->create($data);
+        return $this->entity->where(function($query) use ($data) {
+            if (isset($data->busca)) {
+                $query = $query->where('nome', 'LIKE', "%{$data->busca}%");
+            }
+        })
+        ->orderBy('nome')
+        ->paginate(PaginateConst::QUANTIDADE);
     }
 
-    public function update($id, array $data)
+    public function passageiroExisteEmOutraViagemComAMesmaData($passageiro_id, $data_viagem)
     {
-        $data['url'] = kebab_case($data['title']);
-        $entity = $this->findById($id);
+        return $this->entity->with('viagens')->where(function($query) use ($passageiro_id, $data_viagem) {
 
-        return $entity->update($data);
+            $query = $query->where('id', $passageiro_id);
+
+            $query = $query->whereHas('viagens', function($query) use($data_viagem) {
+                $query = $query->where('data', Carbon::createFromFormat('d/m/Y', $data_viagem)->toDateString());
+            });
+
+        })->get();
+    }
+
+    public function buscaPassageiroComOMesmoRg($passageiro_id, $rg)
+    {
+        return $this->entity->where(function($query) use ($passageiro_id, $rg) {
+
+            $query = $query->where('rg', $rg);
+
+            if ($passageiro_id) {
+                $query = $query->where('id', '<>', $passageiro_id);
+            }
+
+        })
+        ->orderBy('nome')
+        ->get();
     }
 }

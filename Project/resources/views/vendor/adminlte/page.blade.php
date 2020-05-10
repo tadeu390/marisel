@@ -97,7 +97,7 @@
                     @yield('content_top_nav_right')
                     @if(Auth::user())
                         <li class="nav-item">
-                            <a class="nav-link" href="#"
+                            <a class="nav-link" href="#" style="color: #192557;"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                             >
                                 <i class="fa fa-fw fa-power-off"></i> {{ __('adminlte::adminlte.log_out') }}

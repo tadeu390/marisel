@@ -18,12 +18,10 @@ class CreateClienteViagemTable extends Migration
             $table->bigInteger('cliente_id')->unsigned();
             $table->bigInteger('viagem_id')->unsigned();
             $table->integer('poltrona');
+            $table->text('observacao');
 
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->foreign('viagem_id')->references('id')->on('viagens')->onDelete('cascade');
-
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 
