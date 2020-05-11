@@ -2,13 +2,13 @@
 <div class="form-row">
     <div class="col-md-6 mb-3">
         <label for="nome">Nome da viagem</label>
-        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" value="{{$viagem->nome ?? old('nome')}}" required>
+        <input type="text" class="form-control" maxlength="100" id="nome" name="nome" placeholder="Nome" value="{{$viagem->nome ?? old('nome')}}" required>
         <div class="valid-feedback">
         </div>
     </div>
     <div class="col-md-6 mb-3">
         <label for="nome">Motorista</label>
-        <input type="text" class="form-control" id="motorista" name="motorista" placeholder="Nome" value="{{$viagem->motorista ?? old('motorista')}}" required>
+        <input type="text" class="form-control" maxlength="100" id="motorista" name="motorista" placeholder="Nome" value="{{$viagem->motorista ?? old('motorista')}}" required>
         <div class="valid-feedback">
         </div>
     </div>

@@ -2,19 +2,19 @@
 <div class="form-row">
     <div class="col-md-4 mb-3">
         <label for="nome">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" value="{{$cliente->nome ?? old('nome')}}" required>
+        <input type="text" class="form-control" id="nome" max="100" name="nome" placeholder="Nome" value="{{$cliente->nome ?? old('nome')}}" required>
         <div class="valid-feedback">
     </div>
   </div>
   <div class="col-md-4 mb-3">
         <label for="telefone">Telefone</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone" value="{{$cliente->telefone ?? old('telefone')}}" required>
+        <input type="text" class="form-control" id="telefone" maxlength="12" name="telefone" placeholder="Telefone" value="{{$cliente->telefone ?? old('telefone')}}" required>
         <div class="valid-feedback">
         </div>
   </div>
   <div class="col-md-4 mb-3">
         <label for="rg">RG</label>
-        <input type="text" class="form-control" id="rg" name="rg" placeholder="RG" value="{{$cliente->rg ?? old('rg')}}" required>
+        <input type="text" class="form-control" id="rg" name="rg" maxlength="12" placeholder="RG" value="{{$cliente->rg ?? old('rg')}}" required>
         <div class="valid-feedback">
         </div>
     </div>
