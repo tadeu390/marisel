@@ -9,6 +9,9 @@
                 @include('admin.viagens.includes.alerts')
                 <div class="card">
                     <div class="card-header">
+                        <a href="javascript:history.back(1)" title="Voltar a página anterior"><i class="far fa-arrow-alt-circle-left" style="font-size: 30px;"></i></a>
+                    </div>
+                    <div class="card-header">
                         Visualizar viagem
                     </div>
                     <div class="card-body">
@@ -16,6 +19,10 @@
                             <tr>
                                 <td>Nome</td>
                                 <td>{{$viagem->nome}}</td>
+                            </tr>
+                            <tr>
+                                <td>Motorista</td>
+                                <td>{{$viagem->motorista}}</td>
                             </tr>
                             <tr>
                                 <td>Data</td>

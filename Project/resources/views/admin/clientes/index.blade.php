@@ -33,31 +33,33 @@
                         <a class="btn btn-primary" style="color: white !important;" href="{{route('clientes.create')}}">Adicionar</a>
                     </div>
                     <div class="card-body">
-                       <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Nome</td>
-                                    <td>Telefone</td>
-                                    <td>RG</td>
-                                    <td class="text-right">Ações</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($clientes as $item)
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{$item->id}}</td>
-                                        <td>{{$item->nome}}</td>
-                                        <td>{{$item->telefone}}</td>
-                                        <td>{{$item->rg}}</td>
-                                        <td style="letter-spacing: 10px;" class="text-right">
-                                            <a href="{{route('clientes.edit', $item->id)}}" title='Editar'><i class="fas fa-edit"></i></a>
-                                            <a href="{{route('clientes.show', $item->id)}}" title='Detalhes'><i class="fas fa-eye"></i></a>
-                                        </td>
+                                        <td>#</td>
+                                        <td>Nome</td>
+                                        <td>Telefone</td>
+                                        <td>RG</td>
+                                        <td class="text-right">Ações</td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                       </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($clientes as $item)
+                                        <tr>
+                                            <td>{{$item->id}}</td>
+                                            <td>{{$item->nome}}</td>
+                                            <td>{{$item->telefone}}</td>
+                                            <td>{{$item->rg}}</td>
+                                            <td style="letter-spacing: 10px;" class="text-right">
+                                                <a href="{{route('clientes.edit', $item->id)}}" title='Editar'><i class="fas fa-edit"></i></a>
+                                                <a href="{{route('clientes.show', $item->id)}}" title='Detalhes'><i class="fas fa-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                        <div class="row mt-4">
                             <div class="col-lg-12">
                                 @if(isset($filtros))

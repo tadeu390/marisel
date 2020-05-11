@@ -115,13 +115,4 @@ class ClienteService
     {
         return $this->repository->buscaPassageiro((object) $data);
     }
-
-    public function passageiroExisteEmOutraViagemComAMesmaData($passageiro_id, $data_viagem)
-    {
-        $viagem_passageiro = $this->repository->passageiroExisteEmOutraViagemComAMesmaData($passageiro_id, $data_viagem);
-
-        if (count($viagem_passageiro)) {
-            throw new Exception('O passageiro informado já se encontra cadastrado em outra viagem nesta mesma data');
-        }
-    }
 }

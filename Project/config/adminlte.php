@@ -207,7 +207,7 @@ return [
         ], */
         /* ['header' => 'account_settings'], */
         [
-            'text' => 'Clientes',
+            'text' => 'Passageiros',
             'url'  => 'admin/clientes',
             'icon' => 'fas fa-users',
         ],

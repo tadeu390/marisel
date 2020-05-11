@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Services\ClienteService;
+use App\Services\ViagemService;
 use Illuminate\Http\Request;
 
 class ClienteController extends \App\Http\Controllers\Controller
@@ -12,9 +13,15 @@ class ClienteController extends \App\Http\Controllers\Controller
      */
     private $clietenService;
 
-    public function  __construct(ClienteService $clietenService)
+    /**
+     * @var ViagemService
+     */
+    private $viagemService;
+
+    public function  __construct(ClienteService $clietenService, ViagemService $viagemService)
     {
         $this->clietenService = $clietenService;
+        $this->viagemService = $viagemService;
     }
 
     /**
@@ -61,12 +68,13 @@ class ClienteController extends \App\Http\Controllers\Controller
     public function show($id)
     {
         $cliente = $this->clietenService->findById($id);
+        $viagens = $this->viagemService->buscaHistoricoViagem($id);
 
         if (!$cliente) {
             return redirect()->back();
         }
 
-        return view('admin.clientes.show', ['cliente' => $cliente]);
+        return view('admin.clientes.show', ['cliente' => $cliente, 'viagens' => $viagens]);
     }
 
     /**

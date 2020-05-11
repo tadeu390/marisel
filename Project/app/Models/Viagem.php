@@ -13,8 +13,13 @@ class Viagem extends Model
     protected $fillable = [
         'nome',
         'data',
+        'motorista',
         'hora',
         'tipo_veiculo',
+    ];
+
+    protected $dates = [
+        'data'
     ];
 
     protected $table = 'viagens';

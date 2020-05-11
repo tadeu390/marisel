@@ -86,7 +86,8 @@
     background-color: #192557 !important;
 }
 
-.login-page a, .register-page a, .index-cliente-page a, .show-historico-viagem a, .index-viagem-page a, .nav-tabs a {
+.login-page a, .register-page a, .index-cliente-page a, .show-historico-viagem a, 
+.index-viagem-page a, .nav-tabs a, .card-header a, .passageiros a, .creditos a {
     color: #192557 !important;
 }
 
@@ -100,6 +101,12 @@
 
 .nav-link.active {
     background-color: transparent !important;
+}
+
+.creditos
+{
+    font-size: 0.8em;
+    font-weight: bold;
 }
 
 .table thead {

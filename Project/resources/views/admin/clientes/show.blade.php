@@ -9,6 +9,9 @@
                 @include('admin.clientes.includes.alerts')
                 <div class="card">
                     <div class="card-header">
+                        <a href="javascript:history.back(1)" title="Voltar a página anterior"><i class="far fa-arrow-alt-circle-left" style="font-size: 30px;"></i></a>
+                    </div>
+                    <div class="card-header">
                         Dados do cliente
                     </div>
                     <div class="card-body">
@@ -55,32 +58,41 @@
                         Histórico de viagens
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <td>Viagem</td>
-                                    <td>Data</td>
-                                    <td>Hora</td>
-                                    <td>Poltrona</td>
-                                    <td>Observação</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($cliente->viagens as $item)
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <a title="Clique para abrir essa viagem em outra guia" target="_blank"
-                                                href="{{route('viagens.edit', $item->id)}}"> {{$item->nome}}</a
-                                            >
-                                        </td>
-                                        <td>{{$item->data}}</td>
-                                        <td>{{$item->hora}}</td>
-                                        <td>{{$item->pivot->poltrona}}</td>
-                                        <td>{{$item->pivot->observacao}}</td>
+                                        <td>Viagem</td>
+                                        <td>Motorista</td>
+                                        <td>Data</td>
+                                        <td>Hora</td>
+                                        <td>Poltrona</td>
+                                        <td>Observação</td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($viagens as $item)
+                                        <tr>
+                                            <td>
+                                                <a title="Clique para abrir essa viagem em outra guia" target="_blank"
+                                                    href="{{route('viagens.edit', $item->id)}}"> {{$item->nome}}</a
+                                                >
+                                            </td>
+                                            <td>{{$item->motorista}}</td>
+                                            <td>{{$item->data_pt}}</td>
+                                            <td>{{$item->hora}}</td>
+                                            <td>{{$item->poltrona}}</td>
+                                            <td>{{$item->observacao}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-lg-12">
+                                {!! $viagens->links() !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -44,36 +44,44 @@
         <div class="p-2">
             <label>Lista de passageiros</label>
         </div>
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <td>Nome</td>
-                    <td>RG</td>
-                    <td>Poltrona</td>
-                    <td>Observação</td>
-                    <td>Ações</td>
-                </tr>
-            </thead>
-            <tbody id="passageiros">
-                @foreach ($viagem->passageiros as $item)
-                    <tr id="linha{{$item->id}}">
-                        <td>{{$item->nome}}</td>
-                        <td>{{$item->rg}}</td>
-                        <td>{{$item->pivot->poltrona}}</td>
-                        <td>{{$item->pivot->observacao}}</td>
-                        <td>
-                            <button title='Remover passageiro' id="remover_passageiro_viagem"
-                                class="btn btn-primary-outline p-0"
-                                data-toggle="modal" data-target="#modal_remover"
-                                value="{{$item->id}}"
-                                onclick="salvaIdPassageiroParaRemover(this.value)"
-                            >
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </td>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <td>Nome</td>
+                        <td>RG</td>
+                        <td>Poltrona</td>
+                        <td>Observação</td>
+                        <td>Ações</td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="passageiros" class="passageiros">
+                    @foreach ($viagem->passageiros as $item)
+                        <tr id="linha{{$item->id}}">
+                            <td>
+                                <strong>
+                                    <a title="Clique para abrir esse passageiro em outra guia" class="bold" target="_blank"
+                                                    href="{{route('clientes.edit', $item->id)}}"> {{$item->nome}}
+                                    </a>
+                                </strong>
+                            </td>
+                            <td>{{$item->rg}}</td>
+                            <td>{{$item->pivot->poltrona}}</td>
+                            <td>{{$item->pivot->observacao}}</td>
+                            <td>
+                                <button title='Remover passageiro' id="remover_passageiro_viagem"
+                                    class="btn btn-primary-outline p-0"
+                                    data-toggle="modal" data-target="#modal_remover"
+                                    value="{{$item->id}}"
+                                    onclick="salvaIdPassageiroParaRemover(this.value)"
+                                >
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

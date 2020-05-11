@@ -39,6 +39,14 @@ class ViagemService
     }
 
     /**
+     *  Retorna todo o histório de viagens de um determinado passageiro/cliente.
+     */
+    public function buscaHistoricoViagem($passageiro_id)
+    {
+        return $this->repository->buscaHistoricoViagem($passageiro_id);
+    }
+
+    /**
      * Retorna os dados do registro
      *
      * @param  integer $id
@@ -139,7 +147,6 @@ class ViagemService
         $viagem = $this->viagemExiste($data->viagem_id);
         $this->passageiroExiste($data->passageiro_id);
         $this->passageiroExisteNaViagem($viagem, $data->passageiro_id);
-        $this->clienteService->passageiroExisteEmOutraViagemComAMesmaData($data->passageiro_id, $viagem->data);
         $this->poltronaEstaDisponível($data->viagem_id, $data->poltrona);
     }
 

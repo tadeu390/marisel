@@ -168,12 +168,14 @@
             @endif
         </div>
 
-        @hasSection('footer')
         <footer class="main-footer">
-
+            <div class="text-right creditos" id="rodapeinicial">
+                <p>Desenvolvido por: Tadeu Torres <br />
+                    E-mail para contato: <a href="mailto:tadeu.390@gmail.com">tadeu.390@gmail.com</a>
+                </p>
+            </div>
             @yield('footer')
         </footer>
-        @endif
 
         @if(config('adminlte.right_sidebar'))
             <aside class="control-sidebar control-sidebar-{{config('adminlte.right_sidebar_theme')}}">

@@ -10,8 +10,12 @@
                 <form class="form-inline" action="{{route('viagens.busca')}}" method="POST">
                     @csrf
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="nome" class="sr-only">Nome</label>
+                        <label for="nome" class="sr-only">Nome da viagem</label>
                         <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" value="{{$filtros['nome'] ?? ''}}">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="nome" class="sr-only">Motorista</label>
+                        <input type="text" class="form-control" id="motorista" name="motorista" placeholder="Motorista" value="{{$filtros['motorista'] ?? ''}}">
                     </div>
                     <div class="form-group mx-sm-3 mb-2" id="div_data_inicio">
                         <label for="data_inicio" class="sr-only">Data início</label>
@@ -23,11 +27,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Filtrar</button>
                 </form>
-                {{-- <form action="{{route('viagens.index')}}" class="form-inline p-2" method="POST">
-                    @csrf
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button href="submit" class="btn btn-success mb-2">Excel</button>
-                </form> --}}
             </div>
             </div>
         </div>
@@ -44,31 +43,35 @@
                         <a class="btn btn-primary" style="color: white !important;" href="{{route('viagens.create')}}">Adicionar</a>
                     </div>
                     <div class="card-body">
-                       <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Nome</td>
-                                    <td>Data da viagem</td>
-                                    <td>Quantidade de passageiros</td>
-                                    <td class="text-right">Ações</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($viagens as $item)
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{$item->id}}</td>
-                                        <td>{{$item->nome}}</td>
-                                        <td>{{$item->data}}</td>
-                                        <td>{{count($item->passageiros)}}</td>
-                                        <td style="letter-spacing: 10px;" class="text-right">
-                                            <a href="{{route('viagens.edit', $item->id)}}" title='Editar'><i class="fas fa-edit"></i></a>
-                                            <a href="{{route('viagens.show', $item->id)}}" title='Detalhes'><i class="fas fa-eye"></i></a>
-                                        </td>
+                                        <td>#</td>
+                                        <td>Nome</td>
+                                        <td>Data da viagem</td>
+                                        <td>Quantidade de passageiros</td>
+                                        <td>Motorista</td>
+                                        <td class="text-right">Ações</td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                       </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($viagens as $item)
+                                        <tr>
+                                            <td>{{$item->id}}</td>
+                                            <td>{{$item->nome}}</td>
+                                            <td>{{$item->data}}</td>
+                                            <td>{{count($item->passageiros)}}</td>
+                                            <td>{{$item->motorista}}</td>
+                                            <td style="letter-spacing: 10px;" class="text-right">
+                                                <a href="{{route('viagens.edit', $item->id)}}" title='Editar'><i class="fas fa-edit"></i></a>
+                                                <a href="{{route('viagens.show', $item->id)}}" title='Detalhes'><i class="fas fa-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                        <div class="row mt-4">
                            <div class="col-lg-12">
                                 @if(isset($filtros))

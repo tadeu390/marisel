@@ -1,8 +1,14 @@
 @csrf
 <div class="form-row">
-    <div class="col-md-12 mb-3">
-        <label for="nome">Nome</label>
+    <div class="col-md-6 mb-3">
+        <label for="nome">Nome da viagem</label>
         <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" value="{{$viagem->nome ?? old('nome')}}" required>
+        <div class="valid-feedback">
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="nome">Motorista</label>
+        <input type="text" class="form-control" id="motorista" name="motorista" placeholder="Nome" value="{{$viagem->motorista ?? old('motorista')}}" required>
         <div class="valid-feedback">
         </div>
     </div>
@@ -134,7 +140,14 @@
                 elementTr.setAttribute('id', 'linha'+passageiro.id);
 
             var elementTd = document.createElement('TD');
-                elementTd.innerHTML = passageiro.nome;
+            var elementStrong = document.createElement('strong');
+            var elementA = document.createElement('A');
+                elementA.setAttribute("href", "/admin/clientes/"+passageiro.id);
+                elementA.setAttribute("target", "_blank");
+                elementA.innerHTML = passageiro.nome;
+
+            elementStrong.appendChild(elementA);
+            elementTd.appendChild(elementStrong);
             elementTr.appendChild(elementTd);
 
             var elementTd = document.createElement('TD');

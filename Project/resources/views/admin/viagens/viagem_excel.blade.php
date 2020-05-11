@@ -3,6 +3,7 @@
         <tr>
             <td style="width: 50px; text-align: center; color: green;">Nome</td>
             <td style="width: 15px; text-align: center;">Documento</td>
+            <td style="width: 15px; text-align: center;">Telefone</td>
             <td style="width: 10px; text-align: center;">Poltrona</td>
             <td style="width: 100px; text-align: center;">Observação</td>
         </tr>
@@ -11,6 +12,7 @@
         @foreach ($viagem['passageiros'] as $item)
             <tr>
                 <td>{{$item['nome']}}</td>
+                <td>{{$item['telefone']}}</td>
                 <td>{{$item['rg']}}</td>
                 <td>{{$item['pivot']['poltrona']}}</td>
                 <td>{{$item['pivot']['observacao']}}</td>

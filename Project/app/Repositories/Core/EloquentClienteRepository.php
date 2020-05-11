@@ -41,19 +41,6 @@ class EloquentClienteRepository extends BaseEloquentRepository implements Client
         ->paginate(PaginateConst::QUANTIDADE);
     }
 
-    public function passageiroExisteEmOutraViagemComAMesmaData($passageiro_id, $data_viagem)
-    {
-        return $this->entity->with('viagens')->where(function($query) use ($passageiro_id, $data_viagem) {
-
-            $query = $query->where('id', $passageiro_id);
-
-            $query = $query->whereHas('viagens', function($query) use($data_viagem) {
-                $query = $query->where('data', Carbon::createFromFormat('d/m/Y', $data_viagem)->toDateString());
-            });
-
-        })->get();
-    }
-
     public function buscaPassageiroComOMesmoRg($passageiro_id, $rg)
     {
         return $this->entity->where(function($query) use ($passageiro_id, $rg) {

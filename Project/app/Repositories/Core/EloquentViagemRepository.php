@@ -4,6 +4,7 @@ namespace App\Repositories\Core;
 
 use App\Constants\PaginateConst;
 use App\Models\Viagem;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Core\BaseEloquent\BaseEloquentRepository;
 use App\Repositories\Contracts\ViagemRepositoryInterface;
 use Carbon\Carbon;
@@ -22,6 +23,10 @@ class EloquentViagemRepository extends BaseEloquentRepository implements ViagemR
                 $query = $query->where('nome', 'LIKE', "%{$data->nome}%");
             }
 
+            if (isset($data->motorista)) {
+                $query = $query->where('motorista', 'LIKE', "%{$data->motorista}%");
+            }
+
             if (isset($data->data_inicio)) {
                 $query = $query->where('data', '>=', Carbon::createFromFormat('d/m/Y', $data->data_inicio)->toDateString());
             }
@@ -30,6 +35,15 @@ class EloquentViagemRepository extends BaseEloquentRepository implements ViagemR
                 $query = $query->where('data', '<=', Carbon::createFromFormat('d/m/Y', $data->data_fim)->toDateString());
             }
         })->paginate(PaginateConst::QUANTIDADE);
+    }
+
+    public function buscaHistoricoViagem($passageiro_id)
+    {
+        return DB::table('viagens as v')
+            ->join('cliente_viagem as cv', 'v.id', '=', 'cv.viagem_id')
+            ->select(DB::raw('DATE_FORMAT(v.data, "%d/%m/%Y") as data_pt, v.*, cv.*'))
+            ->where('cv.cliente_id', $passageiro_id)
+            ->paginate(PaginateConst::QUANTIDADE);
     }
 
     public function buscarPassageiroNaViagem($viagem_id, $passageiro_id)
