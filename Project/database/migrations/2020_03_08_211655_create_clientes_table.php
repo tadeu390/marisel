@@ -18,6 +18,7 @@ class CreateClientesTable extends Migration
             $table->string('nome');
             $table->string('telefone');
             $table->string('rg');
+            $table->longText('orcamento');
             $table->timestamps();
             $table->softDeletes();
         });

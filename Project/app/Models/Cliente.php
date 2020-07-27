@@ -14,6 +14,7 @@ class Cliente extends Model
         'nome',
         'telefone',
         'rg',
+        'orcamento',
     ];
 
     public function viagens()
