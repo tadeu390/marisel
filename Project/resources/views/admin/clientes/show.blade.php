@@ -37,6 +37,18 @@
                                 <td>{{$cliente->updated_at}}</td>
                             </tr>
                         </table>
+                        <table class="table table-hover table-striped">
+                            <thead style="font-weight: normal !important;">
+                                <tr>
+                                    <td class="text-left">Orçamento</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{$cliente->orcamento}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <div class="row p-2">
                             <form action="{{route('clientes.destroy', $cliente->id)}}" method="POST" style="display: inline;" id="form_remover_cliente">
                                 @method('DELETE')

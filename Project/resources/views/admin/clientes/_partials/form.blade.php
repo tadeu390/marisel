@@ -8,13 +8,13 @@
     </div>
     <div class="col-md-4 mb-3">
         <label for="telefone">Telefone</label>
-        <input type="text" class="form-control" id="telefone" maxlength="12" name="telefone" placeholder="Telefone" value="{{$cliente->telefone ?? old('telefone')}}" required>
+        <input type="text" class="form-control" id="telefone" maxlength="12" name="telefone" placeholder="Telefone" value="{{$cliente->telefone ?? old('telefone')}}">
         <div class="valid-feedback">
         </div>
     </div>
     <div class="col-md-4 mb-3">
         <label for="rg">RG</label>
-        <input type="text" class="form-control" id="rg" name="rg" maxlength="12" placeholder="RG" value="{{$cliente->rg ?? old('rg')}}" required>
+        <input type="text" class="form-control" id="rg" name="rg" maxlength="12" placeholder="RG" value="{{$cliente->rg ?? old('rg')}}">
         <div class="valid-feedback">
         </div>
     </div>
