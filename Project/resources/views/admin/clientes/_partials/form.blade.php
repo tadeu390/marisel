@@ -14,7 +14,7 @@
     </div>
     <div class="col-md-4 mb-3">
         <label for="rg">RG</label>
-        <input type="text" class="form-control" id="rg" name="rg" maxlength="12" placeholder="RG" value="{{$cliente->rg ?? old('rg')}}">
+        <input type="text" class="form-control" id="rg" name="rg" maxlength="100" placeholder="RG" value="{{$cliente->rg ?? old('rg')}}">
         <div class="valid-feedback">
         </div>
     </div>

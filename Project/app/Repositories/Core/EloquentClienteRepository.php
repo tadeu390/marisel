@@ -23,10 +23,10 @@ class EloquentClienteRepository extends BaseEloquentRepository implements Client
             }
 
             if (isset($data->rg)) {
-                $query = $query->where('rgl', $data->rg);
+                $query = $query->where('rg', $data->rg);
             }
         })
-        ->orderBy('id', 'DESC')
+        ->orderBy('nome')
         ->paginate(PaginateConst::QUANTIDADE);
     }
 
