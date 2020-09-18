@@ -12,8 +12,8 @@
         @foreach ($viagem['passageiros'] as $item)
             <tr>
                 <td>{{$item['nome']}}</td>
-                <td>{{$item['telefone']}}</td>
                 <td>{{$item['rg']}}</td>
+                <td>{{$item['telefone']}}</td>
                 <td>{{$item['pivot']['poltrona']}}</td>
                 <td>{{$item['pivot']['observacao']}}</td>
             </tr>
